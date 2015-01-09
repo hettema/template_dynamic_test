@@ -35,7 +35,7 @@ Template.body.helpers({
 Template.body.events({
     'click .homeNav': function() {
         Session.set("homeNav", true)
-        Session.set("todayNav", false)
+        Session.set("otherTemplate", false)
     },
     'click .otherTemplate': function() {
         Session.set("homeNav", false)
