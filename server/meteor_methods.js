@@ -4,14 +4,26 @@ var methods = {
             throw new Meteor.Error("not-authorized");
         } else {
             var today = new Date();
-            // update if a wizard for today exists
-            if (Wizard.findOne({
-                    createdBy: Meteor.userId(),
-                    onDay: today.setHours(0, 0, 0, 0)
-                })) {
-                console.log("wizard exists, updating")
+            var wizardState = Wizard.findOne({
+                createdBy: Meteor.userId(),
+                onDay: today.setHours(0, 0, 0, 0)
+            })
 
-                // update the wizard
+            if (wizardState === undefined) {
+                // new entry
+                console.log("no wizard exists, inserting")
+
+                Wizard.insert({
+                    createdBy: Meteor.userId(),
+                    wizardStep: "wizardStep1",
+                    createdAt: new Date(),
+                    onDay: today.setHours(0, 0, 0, 0)
+                })
+
+            } else {
+                // existing entry
+                console.log("Wizard exists, updating")
+        
                 Wizard.update({
                     createdBy: Meteor.userId(),
                     onDay: today.setHours(0, 0, 0, 0)
@@ -19,13 +31,6 @@ var methods = {
                     $set: {
                         wizardStep: "wizardStep1"
                     }
-                })
-            } else {
-                Wizard.insert({
-                    createdBy: Meteor.userId(),
-                    wizardStep: "wizardStep1",
-                    createdAt: new Date(),
-                    onDay: today.setHours(0, 0, 0, 0)
                 })
             }
         }
@@ -35,14 +40,26 @@ var methods = {
             throw new Meteor.Error("not-authorized");
         } else {
             var today = new Date();
-            // update if a wizard for today exists
-            if (Wizard.findOne({
-                    createdBy: Meteor.userId(),
-                    onDay: today.setHours(0, 0, 0, 0)
-                })) {
-                console.log("wizard exists, updating")
+            var wizardState = Wizard.findOne({
+                createdBy: Meteor.userId(),
+                onDay: today.setHours(0, 0, 0, 0)
+            })
 
-                // update the wizard
+            if (wizardState === undefined) {
+                // no entry
+                console.log("no wizard exists, inserting step 2")
+
+                Wizard.insert({
+                    createdBy: Meteor.userId(),
+                    wizardStep: "wizardStep2",
+                    createdAt: new Date(),
+                    onDay: today.setHours(0, 0, 0, 0)
+                })
+
+            } else {
+                // existing entry
+                console.log("Wizard exists, updating to step 2")
+
                 Wizard.update({
                     createdBy: Meteor.userId(),
                     onDay: today.setHours(0, 0, 0, 0)
@@ -51,17 +68,9 @@ var methods = {
                         wizardStep: "wizardStep2"
                     }
                 })
-            } else {
-                Wizard.insert({
-                    createdBy: Meteor.userId(),
-                    wizardStep: "wizardStep2",
-                    createdAt: new Date(),
-                    onDay: today.setHours(0, 0, 0, 0)
-                })
             }
         }
-    },
-
+    }
 }
 
 Meteor.methods(methods)

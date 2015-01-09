@@ -42,24 +42,12 @@
 
 <template name="home">
     
-    {{#if wizard}} 
-      
-      {{#with wizard}} 
-    
         {{> Template.dynamic template=wizardTemplate}} 
-    
-      {{/with}} 
-    
-    {{else}}
-	
-	  {{>wizardStart }}
-    
-    {{/if}}
 
 </template>
 
 <template name="wizardStart">
-	    <h4>Loading the wizardStart template</h4>
+	    <h4>This is the wizardStart template</h4>
     <p>
         <button type="button" class="btn btn-success yes">go to step 1</button>
     </p>
@@ -69,10 +57,12 @@
 </template>
 
 <template name="wizardStep1">
+	<h4>This is the wizardsStep1 template</h4>
 	this is step 1
 </template>
 
 
 <template name="wizardStep2">
+	<h4>This is the wizardsStep2 template</h4>
 	this is step 2
 </template>
